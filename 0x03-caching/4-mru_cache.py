@@ -4,7 +4,7 @@ from base_caching import BaseCaching
 
 
 class MRUCache(BaseCaching):
-    """LRUCache"""
+    """LRUCache class sytem"""
 
     def __init__(self):
         """init method"""
