@@ -13,7 +13,7 @@ class MRUCache(BaseCaching):
 
     def put(self, key, item):
         """add an item in the cache"""
-        if key or item:
+        if None not in {key, item}:
             self.cache_data[key] = item
             if key not in self.name:
                 self.name.append(key)
