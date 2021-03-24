@@ -45,12 +45,12 @@ class Server:
     def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
         """hyper method that returns dict"""
         d = {}
+        baby_names = len(self.dataset()) / page_size
 
-        d['page_size'] = page_size
+        d['page_size'] = page_size if self.get_page(page, page_size) else 0
         d['page'] = page
         d['data'] = self.get_page(page, page_size)
 
-        baby_names = len(self.dataset()) / page_size
         next_page = None
         if baby_names > page:
             next_page = page + 1
@@ -58,7 +58,7 @@ class Server:
             None
         d['next_page'] = next_page
 
-        prev_page = 0
+        prev_page = None
         if page != 1:
             prev_page = page - 1
         else:
