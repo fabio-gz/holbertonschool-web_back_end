@@ -35,7 +35,7 @@ class Server:
         assert isinstance(page_size, int)
         assert page > 0
         assert page_size > 0
-        
+
         idx = self.index_range(page, page_size)
         baby_names = self.dataset()
         page = baby_names[idx[0]: idx[1]]

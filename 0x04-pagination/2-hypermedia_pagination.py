@@ -35,7 +35,7 @@ class Server:
         assert isinstance(page_size, int)
         assert page > 0
         assert page_size > 0
-        
+
         idx = self.index_range(page, page_size)
         baby_names = self.dataset()
         page = baby_names[idx[0]: idx[1]]
@@ -51,7 +51,7 @@ class Server:
         d['data'] = self.get_page(page, page_size)
 
         baby_names = len(self.dataset()) / page_size
-        next_page = 0
+        next_page = None
         if baby_names > page:
             next_page = page + 1
         else:
