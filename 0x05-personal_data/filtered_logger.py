@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regex-ing"""
+"""filtered logger personal data"""
 from typing import List
 import re
 import logging
@@ -46,8 +46,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 
 class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-        """
+    """ Redacting Formatter class"""
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
