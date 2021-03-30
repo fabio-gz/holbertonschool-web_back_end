@@ -61,3 +61,23 @@ class RedactingFormatter(logging.Formatter):
         """formatter function"""
         return filter_datum(self.fields, self.REDACTION,
                             super().format(record), self.SEPARATOR)
+
+
+def main():
+    """main function"""
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    logger = get_logger()
+
+    for row in cursor:
+        dat = ""
+        for i, name in enumerate(cursor.column_names):
+            dat += f"{name}={row[i]};"
+        logger.info(dat.strip())
+    cursor.close()
+    db.close()
+
+
+if __name__ == '__main__':
+    main()
