@@ -9,7 +9,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 
 class DB:
-
+    """Data base class"""
     def __init__(self):
         """init method"""
         self._engine = create_engine("sqlite:///a.db", echo=True)
