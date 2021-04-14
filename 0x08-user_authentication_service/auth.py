@@ -45,3 +45,13 @@ class Auth:
             return checkpw(str.encode(password), user_f.hashed_password)
         except NoResultFound:
             return False
+
+    def create_session(self, email: str) -> str:
+        """save new uuid"""
+        try:
+            user_f = self._db.find_user_by(email=email)
+        except NoResultFound:
+            return None
+        uuid = _generate_uuid()
+        self._db.update_user(user_f.id, session_id=uuid)
+        return uuid
