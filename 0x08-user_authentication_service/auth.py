@@ -6,6 +6,13 @@ from user import User
 from sqlalchemy.orm.exc import NoResultFound
 
 
+def _hash_password(password: str) -> str:
+    """hash a password"""
+    enc = password.encode('utf-8')
+    hashed = bcrypt.hashpw(enc, bcrypt.gensalt())
+    return hashed
+
+
 class Auth:
     """Auth class to interact with the authentication database.
     """
@@ -23,10 +30,3 @@ class Auth:
             new_user = self._db.add_user(email, hashed)
             return new_user
         raise ValueError('User {} already exists'.format(user.email))
-
-
-def _hash_password(password: str) -> str:
-    """hash a password"""
-    enc = password.encode('utf-8')
-    hashed = bcrypt.hashpw(enc, bcrypt.gensalt())
-    return hashed
