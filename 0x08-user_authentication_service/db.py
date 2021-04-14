@@ -48,13 +48,12 @@ class DB:
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """update user found"""
-        cols = User.__table__.columns._data.keys()
-        for key in kwargs.keys():
-            if key not in cols:
+        update_u = self.find_user_by(id=user_id)
+
+        for key, val in kwargs.items():
+            if hasattr(update_u, key):
+                setattr(update_u, key, val)
+            else:
                 raise ValueError
 
-        session = (update(User)
-                   .where(User.id == user_id)
-                   .values(**kwargs))
-        self._session.execute(session)
         self._session.commit()
