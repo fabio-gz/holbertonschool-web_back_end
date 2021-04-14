@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """User model"""
-from sqlalchemy import create_engine, update
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from user import Base, User
@@ -9,9 +9,9 @@ from sqlalchemy.orm.exc import NoResultFound
 
 
 class DB:
-    """Data base class"""
+    """DB class"""
     def __init__(self):
-        """init method"""
+        """Initialize a new DB instance"""
         self._engine = create_engine("sqlite:///a.db", echo=True)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
@@ -19,7 +19,7 @@ class DB:
 
     @property
     def _session(self):
-        """private session"""
+        """Memoized session object"""
         if self.__session is None:
             DBSession = sessionmaker(bind=self._engine)
             self.__session = DBSession()
