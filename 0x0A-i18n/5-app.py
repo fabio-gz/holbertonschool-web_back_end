@@ -27,7 +27,7 @@ users = {
 @app.route('/', methods=['GET'], strict_slashes=False)
 def home():
     """simple home page"""
-    return render_template('2-index.html')
+    return render_template('5-index.html')
 
 
 @babel.localeselector
