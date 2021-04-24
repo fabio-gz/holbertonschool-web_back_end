@@ -16,11 +16,18 @@ class Config(object):
 babel = Babel(app)
 app.config.from_object(Config)
 
+users = {
+    1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
+    2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
+    3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
+    4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
+}
+
 
 @app.route('/', methods=['GET'], strict_slashes=False)
 def home():
     """simple home page"""
-    return render_template('4-index.html')
+    return render_template('2-index.html')
 
 
 @babel.localeselector
@@ -30,6 +37,20 @@ def get_locale():
     if locale:
         return locale
     return request.accept_languages.best_match(Config.LANGUAGES)
+
+
+def get_user(login_as):
+    """get use by id"""
+    if login_as and int(login_as) in users:
+        return users.get(int(login_as))
+    return None
+
+
+@app.before_request
+def before_request():
+    """find a user if any"""
+    user = get_user(u_id)
+    g.user = user
 
 
 if __name__ == "__main__":
