@@ -21,6 +21,7 @@ class Cache:
     def get(self, key: str, fn: Optional[callable] = None)
     -> Union[bytes, str, int, float]:
         """convert the data back"""
+        data = self._redis.get(key)
         if fn:
             return fn(data)
         return data
