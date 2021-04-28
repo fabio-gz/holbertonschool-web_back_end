@@ -2,7 +2,7 @@
 """string to redis"""
 import redis
 import uuid
-from typing import Union
+from typing import Union, Optional, Callable
 
 
 class Cache:
@@ -17,3 +17,10 @@ class Cache:
         rkey = str(uuid.uuid4())
         self._redis.set(rkey, data)
         return rkey
+
+    def get(self, key: str, fn: Optional[callable] = None)
+    -> Union[bytes, str, int, float]:
+        """convert the data back"""
+        if fn:
+            return fn(data)
+        return data
