@@ -1,3 +1,4 @@
+/* eslint-disable */
 const getBudgetObject = (income, gdp, capita) => {
     const budget = {
         income,
